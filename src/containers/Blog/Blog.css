@@ -1,7 +1,19 @@
-.Posts {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    width: 80%;
-    margin: auto;
+.Blog ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* height: 84px; */
+    width: 100%;
+    text-align: center;
+}
+
+.Blog a {
+    /* margin:10px; */
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+.Blog a:hover,
+.Blog a:active {
+    color: #fa923f
 }
