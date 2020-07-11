@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Post from "../../../components/Post/Post";
-import axios from "../../../axios"
+import axios from "../../../axios";
+import { Link } from "react-router-dom";
 
-import "./Posts.css"
+import "./Posts.css";
 
 class Posts extends Component {
   state = {
@@ -10,8 +11,8 @@ class Posts extends Component {
   };
 
   componentDidMount() {
-      console.log(this.props)
-      console.log("Post.js | component did mount")
+    console.log(this.props);
+    console.log("Post.js | component did mount");
     axios
       .get("/posts")
       .then((res) => {
@@ -39,12 +40,13 @@ class Posts extends Component {
     if (!this.state.error) {
       posts = this.state.posts.map((post) => {
         return (
-          <Post
-            key={post.id}
-            author={post.author}
-            title={post.title}
-            clicked={() => this.postSelectedHandler(post.id)}
-          />
+          <Link to={"/"+post.id} key={post.id}>
+            <Post
+              author={post.author}
+              title={post.title}
+              clicked={() => this.postSelectedHandler(post.id)}
+            />
+          </Link>
         );
       });
     }

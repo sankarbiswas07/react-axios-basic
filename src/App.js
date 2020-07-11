@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import Blog from "./containers/Blog/Blog";
-/**
- * 
-  <section>
-          <FullPost id={this.state.selectedPostId} />
-        </section>
-        <section>
-          <NewPost />
-        </section>
- */
+
 class App extends Component {
   render() {
     return (

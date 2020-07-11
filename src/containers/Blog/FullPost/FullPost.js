@@ -8,23 +8,26 @@ class FullPost extends Component {
       this.state = {
         loadedPost: null,
         loading: null,
+        id: this.props.match.params.id || null
       };
       console.log("constructor FullPost")
+      console.log(this.state)
   }
   
-  componentDidUpdate(previousProps, previousState) {
-    if(this.props.id && previousProps.id !== this.props.id){
-      console.log("Got new Id "+this.props.id)
-      this.setState({loading: true})
+  componentDidMount() {
+    console.log(this.state.id)
+    if(this.state.id){
+      console.log("Got new Id "+this.state.id)
+      // this.setState({loading: true})
       if (
         !this.state.loadedPost ||
-        (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)
+        (this.state.loadedPost && this.state.loadedPost.id !== this.state.id)
       ) {
         axios
-          .get("/posts/" + this.props.id)
+          .get("/posts/" + this.state.id)
           .then((res) => {
             // console.log(res)
-            this.setState({ loadedPost: res.data, loading: false})
+            this.setState({ loadedPost: res.data})
           })
           .catch((err) => {
             console.log(err);
@@ -34,7 +37,7 @@ class FullPost extends Component {
   }
 
   deletePostHandler = () =>{
-    axios.delete("/posts/" + this.props.id)
+    axios.delete("/posts/" + this.state.id)
     .then(res=>{
         console.log(res)
     })
@@ -44,11 +47,11 @@ class FullPost extends Component {
   }
 
   render() {
-    let post = <p style={{ textAlign: "center" }}>Please select a Post!</p>;
-    if (this.state.loading) {
-      post = <p style={{ textAlign: "center" }}>Loading . . .</p>;
-    }
-    if (this.props.id && this.state.loadedPost && !this.state.loading) {
+    let post = <p style={{ textAlign: "center" }}>Loading...</p>;
+    // if (this.state.loading) {
+    //   post = <p style={{ textAlign: "center" }}>Loading . . .</p>;
+    // }
+    if (this.state.id && this.state.loadedPost && !this.state.loading) {
       post = (
         <div className="FullPost">
           <h1>{this.state.loadedPost.title}</h1>
